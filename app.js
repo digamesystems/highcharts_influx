@@ -17,7 +17,7 @@ app.use(bodyParser.urlencoded({
     extended: true
 }));
 app.use(express.static(path.join(__dirname, 'public')));
-app.set('port', 3000);
+app.set('port', 3001);
 
 
 
@@ -76,7 +76,7 @@ app.get('/api/v1/sensor/:field/:macaddress', (request, response) => {
     const results = []
     
     queryApi.queryRows(`from(bucket: "sensor_data")
-      |> range(start:0)
+      |> range(start:-2d)
       |> filter(fn: (r) => r["_measurement"] == "sensor_reading")
       |> filter(fn: (r) => r["_field"] == "${field}")
       |> filter(fn: (r) => r["macaddress"] == "${macaddress}")
@@ -84,9 +84,9 @@ app.get('/api/v1/sensor/:field/:macaddress', (request, response) => {
     
         next(row, tableMeta) {
             const o = tableMeta.toObject(row)
-                // console.log(
-                //     `${o._time} ${o._measurement} in '${o.location}': ${o._field}=${o._value}`
-                // )
+                 console.log(
+                    `${o._time} ${o._measurement} in '${o.model}': ${o._field}=${o._value}`
+                 )
             results.push(o)
         },
         error(error) {
