@@ -1,5 +1,6 @@
 const { InfluxDB, Point, HttpError } = require('@influxdata/influxdb-client')
-const { url, token, org, bucket } = require('./env')
+const {token} = require('./secret')
+const { url, org, bucket } = require('./env')
 const { OrgsAPI, BucketsAPI } = require('@influxdata/influxdb-client-apis')
 const influxDB = new InfluxDB({ url, token })
 console.log(`Using organization "${url}"`)
