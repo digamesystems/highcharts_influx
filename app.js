@@ -77,7 +77,7 @@ app.get('/api/v1/sensor/:field/:macaddress', (request, response) => {
     const results = []
     
     queryApi.queryRows(`from(bucket: "sensor_data")
-      |> range(start:-2d)
+      |> range(start:-7d)
       |> filter(fn: (r) => r["_measurement"] == "sensor_reading")
       |> filter(fn: (r) => r["_field"] == "${field}")
       |> filter(fn: (r) => r["macaddress"] == "${macaddress}")

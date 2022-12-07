@@ -119,7 +119,7 @@ const fetchAllLocations = () => {
                 plotOptions: {
                     series: {
                         linewidth: 0.5,
-                        turboThreshold: 2000,
+                        turboThreshold: 0,
                         
                     }
                 },
