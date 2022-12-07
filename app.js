@@ -9,10 +9,7 @@ console.log(`Using organization "${url}"`)
 const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
-//const hanalei = require('./data/tides-hanalei.js');
-//const hilo = require('./data/tides-hilo.js');
-//const honolulu = require('./data/tides-honolulu.js');
-//const kahului = require('./data/tides-kahului.js');
+
 const app = express();
 
 app.use(bodyParser.json());
@@ -60,12 +57,6 @@ recreateBucket('sensor_data')
         app.listen(app.get('port'), () => {
             console.log(`Listening on ${app.get('port')}.`);
         });
-       /*
-        writeDataToInflux(hanalei);
-        writeDataToInflux(hilo);
-        writeDataToInflux(honolulu);
-        writeDataToInflux(kahului);
-      */
     })
     .then(() => console.log('\nFinish calling writeDataTo Influx SUCCESS'))
     .catch(error => console.log({ error }));
@@ -73,12 +64,9 @@ recreateBucket('sensor_data')
 
 const queryApi = new InfluxDB({ url, token }).getQueryApi(org)
 
-// const fluxQuery =
-//     `from(bucket:"ocean_tides") |> range(start:0) |> filter(fn: (r) => r.location == "/(?i)(${place})/")`
-
 console.log('*** QUERY ROWS ***')
-    // Execute query and receive table metadata and rows.
-    // https://v2.docs.influxdata.com/v2.0/reference/syntax/annotated-csv/
+// Execute query and receive table metadata and rows.
+// https://v2.docs.influxdata.com/v2.0/reference/syntax/annotated-csv/
 
 app.get('/api/v1/sensor/:field/:macaddress', (request, response) => {
     const { field } = request.params;
@@ -86,9 +74,8 @@ app.get('/api/v1/sensor/:field/:macaddress', (request, response) => {
     const { macaddress } = request.params;
     console.log(macaddress)
     const results = []
-    //queryApi.queryRows(`from(bucket:"ocean_tides") |> range(start:0) |> filter(fn: (r) => r.location =~ /(?i)(${place})/)`, {
-
-      queryApi.queryRows(`from(bucket: "sensor_data")
+    
+    queryApi.queryRows(`from(bucket: "sensor_data")
       |> range(start:0)
       |> filter(fn: (r) => r["_measurement"] == "sensor_reading")
       |> filter(fn: (r) => r["_field"] == "${field}")
