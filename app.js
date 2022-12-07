@@ -85,9 +85,9 @@ app.get('/api/v1/sensor/:field/:macaddress', (request, response) => {
     
         next(row, tableMeta) {
             const o = tableMeta.toObject(row)
-                 console.log(
-                    `${o._time} ${o._measurement} in '${o.model}': ${o._field}=${o._value}`
-                 )
+                //  console.log(
+                //     `${o._time} ${o._measurement} in '${o.model}': ${o._field}=${o._value}`
+                //  )
             results.push(o)
         },
         error(error) {
