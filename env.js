@@ -3,7 +3,7 @@
 const url = process.env['INFLUX_URL'] || 'https://europe-west1-1.gcp.cloud2.influxdata.com'
     /** InfluxDB authorization token */
 
-const token = process.env['INFLUX_TOKEN'] || 'xtS0Ene1fl3cfwXiwJdE_Mt-UfHm3NnIFqqNMhfV1DAC4CyzfOgB-Lw9Bs3oaALvSqXIkoYF3tS09KyMAdF1_g=='
+const token = process.env['INFLUX_TOKEN'] || 'SECRET'
     /** Organization within InfluxDB  */
 
 const org = process.env['INFLUX_ORG'] || 'cecd03d4a68d21b0'
