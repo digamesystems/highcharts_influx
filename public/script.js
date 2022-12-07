@@ -27,7 +27,46 @@ const fetchAllLocations = () => {
                 });
             });
 
-            return Highcharts.chart('container', {
+            return Highcharts.stockChart('container', {
+                rangeSelector: {
+                    selected: 4,
+                    buttons: [{
+                        type: 'hour',
+                        count: 1,
+                        text: '1h'
+                    }, {
+                        type: 'hour',
+                        count: 3,
+                        text: '3h'
+                    }, {
+                        type: 'hour',
+                        count: 6,
+                        text: '6h'
+                    }, {
+                        type: 'day',
+                        count: 1,
+                        text: '1d'
+                    }, {
+                        type: 'day',
+                        count: 2,
+                        text: '2d'
+                    }, {
+                        type: 'day',
+                        count: 7,
+                        text: '7d'
+                    }, {
+                        type: 'month',
+                        count: 1,
+                        text: '1m'
+                    }, {
+                        type: 'year',
+                        count: 1,
+                        text: '1y'
+                    }, {
+                        type: 'all',
+                        text: 'All'
+                    }],
+                },        
                 colors: ['#5A91F0', '#53A828', '#887AE2', '#CC9C00', '#EB6A57'],
                 chart: {
                     zoomType: 'x',
