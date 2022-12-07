@@ -28,54 +28,24 @@ const fetchAllLocations = () => {
             });
 
             return Highcharts.chart('container', {
-                colors: ['#5A91F0', '#53A828', '#887AE2', '#CC9C00', '#EB6A57'],
+                colors: ['#508991', '#175456', '#09BC8A', '#78CAD2'],
                 chart: {
                     zoomType: 'x',
-                    backgroundColor: '#282B2F',
-                    type: 'spline',
-                    style: {
-                        fontColor: '#DFDFE0'
-                    }
+                    type: 'spline'
                 },
                 title: {
                     text: 'MT Sensor Data',
                     style: {
-                        color: '#DFDFE0'
+                        'color': '#175456',
                     }
                 },
                 xAxis: {
-                    type: 'datetime',
-                    tickColor: '#DFDFE0',
-                    lineColor: '#DFDFE0',
-                    labels: {
-                        style: {
-                            color: '#DFDFE0'
-                        }
-                    },
-                    style: {
-                        color: '#DFDFE0'
-                    }
+                    type: 'datetime'
                 },
                 yAxis: {
-                    lineColor: '#DFDFE0',
-                    tickColor: '#DFDFE0',
-                    labels: {
-                        style: {
-                            color: '#DFDFE0'
-                        }
-                    },
-                    gridLineColor: '#DFDFE0',
                     title: {
-                        text: 'Temperature (F)',
-                        style: {
-                            color: '#DFDFE0'
-                        }
+                        text: 'Temperature (F)'
                     }
-                },
-                legend: {
-                    itemStyle: {
-                        color: '#DFDFE0'
-                    },
                 },
                 plotOptions: {
                     series: {
