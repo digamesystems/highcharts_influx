@@ -90,8 +90,8 @@ function setupChart(container, mutatedArray, title, subtitle, yaxisTitle){
             }
         },
         legend: {
+            enabled: true,
             itemStyle: {
-                enabled:true,
                 color: '#DFDFE0'
             },
         },
