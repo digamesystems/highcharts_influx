@@ -81,10 +81,13 @@ app.get('/api/v1/sensor/:field/:macaddress', (request, response) => {
       |> filter(fn: (r) => r["_measurement"] == "sensor_reading")
       |> filter(fn: (r) => r["_field"] == "${field}")
       |> filter(fn: (r) => r["macaddress"] == "${macaddress}")
+      |> aggregateWindow(every: 10m, fn: mean, createEmpty: false)
       |> yield(name: "mean")`, { 
     
         next(row, tableMeta) {
+        
             const o = tableMeta.toObject(row)
+            o.field = o._field
                 //  console.log(
                 //     `${o._time} ${o._measurement} in '${o.model}': ${o._field}=${o._value}`
                 //  )
