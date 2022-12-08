@@ -134,13 +134,14 @@ const fetchData = (field, macaddress) => {
         .catch(error => console.log(error));
 }
 
+function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
 
-const fetchSensorDataAndPlot = () => {
-    return Promise.all([  // Grabbing data by field type and macaddress. (hack.)
-            fetchData('temperature','A8:46:9D:1A:EA:D4'),
-            fetchData("temperature","CC:9C:3E:FF:FD:8B"),
-            fetchData('temperature',"CC:9C:3E:FF:FE:6D")
-        ])
+const fetchSensorDataAndPlot = (measurementField, macaddresses, containerName) => {
+    return Promise.all(
+        macaddresses.map(macAddress => fetchData(measurementField, macAddress))
+        )
         .then(parsedRes => {
 
             const mutatedArray = parsedRes.map(arr => {
@@ -154,7 +155,7 @@ const fetchSensorDataAndPlot = () => {
             });
 
             // Create the chart
-            setupChart('container', mutatedArray, 'Temperature v. Time', '', 'Temperature (F)');
+            setupChart(containerName, mutatedArray, capitalizeFirstLetter(measurementField) + ' v. Time', '', capitalizeFirstLetter(measurementField));
             
         })
         .catch(error => console.log(error));
@@ -162,9 +163,28 @@ const fetchSensorDataAndPlot = () => {
     
 };
 
+measurement = getParameterByName('measurement');
 
+switch (measurement) {
+    case 'temperature':
+        macAddresses = ['A8:46:9D:1A:EA:D4',"CC:9C:3E:FF:FD:8B","CC:9C:3E:FF:FE:6D"];       
+        break;
+    case 'humidity':
+        macAddresses = ['A8:46:9D:1A:EA:D4',"CC:9C:3E:FF:FD:8B","CC:9C:3E:FF:FE:6D"]; 
+        break;
+    case 'tvoc':
+        macAddresses = ["CC:9C:3E:FF:FD:8B","CC:9C:3E:FF:FE:6D"]; 
+        break;
+    case 'pm2_5':
+        macAddresses = ["CC:9C:3E:FF:FD:8B","CC:9C:3E:FF:FE:6D"];   
+        break;
+    default:
+        macAddresses = ['A8:46:9D:1A:EA:D4',"CC:9C:3E:FF:FD:8B","CC:9C:3E:FF:FE:6D"]; 
+        measurement = 'temperature';
 
-fetchSensorDataAndPlot();
+}
+
+fetchSensorDataAndPlot(measurement, macAddresses,'container');
 
 console.log("xmin: " + typeof(parseInt(getParameterByName('xmin')))); 
 console.log("xmax: " + typeof(parseInt(getParameterByName('xmax'))));
