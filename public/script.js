@@ -9,9 +9,10 @@ function getParameterByName(name, url = window.location.href) {
 
 //Builds a HighCharts chart in the specified container with a multi-dimensional array of data
 function setupChart(container, mutatedArray, title, subtitle, yaxisTitle){
+    const queryParamsPresent = parseInt(getParameterByName('xmin')) && parseInt(getParameterByName('xmax'));
     return Highcharts.stockChart(container, {
         rangeSelector: {
-            selected: 4,
+            selected: 9,
             buttons: [{
                 type: 'hour',
                 count: 1,
@@ -62,8 +63,8 @@ function setupChart(container, mutatedArray, title, subtitle, yaxisTitle){
             type: 'datetime',
             tickColor: '#DFDFE0',
             lineColor: '#DFDFE0',
-            min:parseInt(getParameterByName('xmin')),
-            max:parseInt(getParameterByName('xmax')),
+            min: queryParamsPresent ? parseInt(getParameterByName('xmin')) : null,
+            max: queryParamsPresent ? parseInt(getParameterByName('xmax')) : null,
             labels: {
                 style: {
                     color: '#DFDFE0'
